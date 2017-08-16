@@ -1,0 +1,17 @@
+dependencies {
+    testCompile "junit:junit:4.12",
+            "org.assertj:assertj-core:1.7.1",
+            "org.mockito:mockito-core:1.10.17"
+
+    def dependencyVersions = [
+            dropwizardVersion:"1.0.9"
+    ]
+
+    compile "javax.inject:javax.inject:1",
+            "javax.servlet:javax.servlet-api:3.1.0",
+            "io.dropwizard:dropwizard-core:$dependencyVersions.dropwizardVersion",
+            "io.dropwizard:dropwizard-client:$dependencyVersions.dropwizardVersion",
+            "javax.ws.rs:javax.ws.rs-api:2.0.1",
+            "uk.gov.ida:dropwizard-logstash:1.0.5-37",
+            "org.apache.commons:commons-lang3:3.3.2"
+}
