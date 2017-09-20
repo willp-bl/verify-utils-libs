@@ -2,8 +2,8 @@ package uk.gov.ida.common.shared.security;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
+import org.junit.runners.BlockJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(JUnit4ClassRunner.class)
+@RunWith(BlockJUnit4ClassRunner.class)
 public class CryptoHelperTest {
 
     static final String EXAMPLE_IDP = "http://example.com/idp";

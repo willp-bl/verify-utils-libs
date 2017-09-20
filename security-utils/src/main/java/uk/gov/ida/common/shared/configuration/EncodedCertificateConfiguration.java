@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 import java.security.PublicKey;
 
 @JsonDeserialize(using=EncodedCertificateDeserializer.class)
-@JsonTypeName("base64")
 public class EncodedCertificateConfiguration implements DeserializablePublicKeyConfiguration {
     private PublicKey publicKey;
     private String cert;
