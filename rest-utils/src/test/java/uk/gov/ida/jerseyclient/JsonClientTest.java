@@ -4,22 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import uk.gov.ida.common.ExceptionType;
-import uk.gov.ida.exceptions.ApplicationException;
-
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
+import org.mockito.junit.MockitoJUnitRunner;
 import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.UUID;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,13 +17,7 @@ public class JsonClientTest {
     @Mock
     private ErrorHandlingClient errorHandlingClient;
     @Mock
-    private Client client;
-    @Mock
-    private WebTarget webTarget;
-    @Mock
     private JsonResponseProcessor jsonResponseProcessor;
-    @Mock
-    private Invocation.Builder builder;
 
     private JsonClient jsonClient;
     private URI testUri = URI.create("/some-uri");
@@ -42,10 +25,6 @@ public class JsonClientTest {
 
     @Before
     public void setup() {
-        when(client.target(any(String.class))).thenReturn(webTarget);
-        when(client.target(any(URI.class))).thenReturn(webTarget);
-        when(webTarget.request(any(MediaType.class))).thenReturn(builder);
-        when(builder.accept(any(MediaType.class))).thenReturn(builder);
         jsonClient = new JsonClient(errorHandlingClient, jsonResponseProcessor);
     }
 

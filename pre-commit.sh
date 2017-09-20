@@ -21,7 +21,7 @@ tput setaf 3
 printf "to update the following dependent projects:\n"
 
 printf "\n ida-hub"
-printf "\n ida-frontend"
+printf "\n verify-frontend-api"
 printf "\n ida-compliance-tool"
 printf "\n ida-sample-rp"
 printf "\n ida-stub-idp"

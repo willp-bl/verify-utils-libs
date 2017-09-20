@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import uk.gov.ida.configuration.AnalyticsConfiguration;
 import uk.gov.ida.configuration.AnalyticsConfigurationBuilder;
 
@@ -46,9 +46,6 @@ import static uk.gov.ida.analytics.AnalyticsReporter.PIWIK_VISITOR_ID;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnalyticsReporterTest {
-
-    @Mock
-    private Client client;
 
     @Mock
     private ContainerRequest requestContext;
@@ -86,8 +83,6 @@ public class AnalyticsReporterTest {
     public void shouldCallGenerateUrlAndSendToPiwkAsynchronously() throws MalformedURLException, URISyntaxException {
         String friendlyDescription = "friendly description of URL";
         URI piwikUri = URI.create("piwik");
-
-        when(requestContext.getHeaderString("User-Agent")).thenReturn("Chrome");
 
         AnalyticsReporter analyticsReporter = spy(new AnalyticsReporter(piwikClient, new AnalyticsConfigurationBuilder().build()));
 

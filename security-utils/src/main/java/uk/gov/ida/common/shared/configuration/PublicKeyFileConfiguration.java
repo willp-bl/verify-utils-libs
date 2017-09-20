@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 import java.security.PublicKey;
 
 @JsonDeserialize(using=PublicKeyDeserializer.class)
-@JsonTypeName("file")
 public class PublicKeyFileConfiguration implements DeserializablePublicKeyConfiguration {
     private PublicKey publicKey;
     private String cert;
