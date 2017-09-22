@@ -11,6 +11,7 @@ import java.security.PrivateKey;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(using=EncodedPrivateKeyDeserializer.class)
+@JsonTypeName("base64")
 public class EncodedPrivateKeyConfiguration implements PrivateKeyConfiguration {
 
     public EncodedPrivateKeyConfiguration(PrivateKey privateKey, String key) {

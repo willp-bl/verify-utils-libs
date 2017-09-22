@@ -21,14 +21,14 @@ public class PublicKeyFileConfigurationTest {
     @Test
     public void should_loadPublicKeyFromJSON() throws Exception {
         String path = getClass().getClassLoader().getResource("public_key.crt").getPath();
-        PublicKeyFileConfiguration publicKeyConfiguration = objectMapper.readValue("{\"certFile\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
+        PublicKeyFileConfiguration publicKeyConfiguration = objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
 
         assertThat(publicKeyConfiguration.getPublicKey().getAlgorithm()).isEqualTo("RSA");
     }
 
     @Test(expected = NoSuchFileException.class)
     public void should_ThrowExceptionWhenFileDoesNotExist() throws Exception {
-        objectMapper.readValue("{\"certFile\": \"/foo/bar\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"/foo/bar\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
     }
 
     @Test
@@ -37,12 +37,12 @@ public class PublicKeyFileConfigurationTest {
         thrown.expectCause(any(CertificateException.class));
 
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        objectMapper.readValue("{\"certFile\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
     }
 
     @Test(expected = IllegalStateException.class)
     public void should_ThrowExceptionWhenIncorrectKeySpecified() throws Exception {
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        objectMapper.readValue("{\"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}", PublicKeyFileConfiguration.class);
     }
 }
