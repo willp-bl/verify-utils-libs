@@ -1,6 +1,7 @@
 package uk.gov.ida.common.shared.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import java.security.PrivateKey;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(using=PrivateKeyFileDeserializer.class)
+@JsonTypeName("file")
 public class PrivateKeyFileConfiguration implements PrivateKeyConfiguration {
 
     public PrivateKeyFileConfiguration(PrivateKey privateKey, String keyFile) {

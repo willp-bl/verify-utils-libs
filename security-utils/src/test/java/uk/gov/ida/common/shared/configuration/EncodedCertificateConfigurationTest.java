@@ -25,7 +25,7 @@ public class EncodedCertificateConfigurationTest {
         String path = Resources.getResource("public_key.crt").getFile();
         byte[] cert = Files.readAllBytes(new File(path).toPath());
         String encodedCert = Base64.getEncoder().encodeToString(cert);
-        String jsonConfig = "{\"cert\": \"" + encodedCert + "\", \"name\": \"someId\"}";
+        String jsonConfig = "{\"type\": \"base64\", \"cert\": \"" + encodedCert + "\", \"name\": \"someId\"}";
         EncodedCertificateConfiguration config = objectMapper.readValue(jsonConfig, EncodedCertificateConfiguration.class);
 
         assertThat(config.getPublicKey().getAlgorithm()).isEqualTo("RSA");
@@ -38,20 +38,20 @@ public class EncodedCertificateConfigurationTest {
         String path = Resources.getResource("private_key.pk8").getFile();
         byte[] key = Files.readAllBytes(new File(path).toPath());
         String encodedKey = Base64.getEncoder().encodeToString(key);
-        objectMapper.readValue("{\"cert\": \"" + encodedKey + "\", \"name\": \"someId\"}", EncodedCertificateConfiguration.class);
+        objectMapper.readValue("{\"type\": \"base64\", \"cert\": \"" + encodedKey + "\", \"name\": \"someId\"}", EncodedCertificateConfiguration.class);
     }
 
     @Test
     public void should_ThrowExceptionWhenStringIsNotBase64Encoded() throws Exception {
         thrown.expect(IllegalArgumentException.class);
 
-        objectMapper.readValue("{\"cert\": \"" + "FOOBARBAZ" + "\", \"name\": \"someId\"}", EncodedCertificateConfiguration.class);
+        objectMapper.readValue("{\"type\": \"base64\", \"cert\": \"" + "FOOBARBAZ" + "\", \"name\": \"someId\"}", EncodedCertificateConfiguration.class);
     }
 
     @Test(expected = IllegalStateException.class)
     public void should_ThrowExceptionWhenIncorrectKeySpecified() throws Exception {
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        String jsonConfig = "{\"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}";
+        String jsonConfig = "{\"type\": \"base64\", \"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}";
         objectMapper.readValue(jsonConfig, EncodedCertificateConfiguration.class);
     }
 }

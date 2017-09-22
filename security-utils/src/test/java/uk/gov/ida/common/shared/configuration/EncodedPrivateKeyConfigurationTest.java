@@ -25,7 +25,7 @@ public class EncodedPrivateKeyConfigurationTest {
         String path = Resources.getResource("private_key.pk8").getFile();
         byte[] key = Files.readAllBytes(new File(path).toPath());
         String encodedKey = Base64.getEncoder().encodeToString(key);
-        String jsonConfig = "{\"key\": \"" + encodedKey + "\"}";
+        String jsonConfig = "{\"type\": \"base64\", \"key\": \"" + encodedKey + "\"}";
         EncodedPrivateKeyConfiguration configuration = objectMapper.readValue(jsonConfig, EncodedPrivateKeyConfiguration.class);
         assertThat(configuration.getPrivateKey().getAlgorithm()).isEqualTo("RSA");
     }
@@ -36,11 +36,11 @@ public class EncodedPrivateKeyConfigurationTest {
         thrown.expectCause(any(InvalidKeySpecException.class));
 
         String key = "";
-        objectMapper.readValue("{\"key\": \"" + key + "\"}", EncodedPrivateKeyConfiguration.class);
+        objectMapper.readValue("{\"type\": \"base64\", \"key\": \"" + key + "\"}", EncodedPrivateKeyConfiguration.class);
     }
 
     @Test(expected = EncodedPrivateKeyDeserializer.PrivateKeyNotSpecifiedException.class)
     public void should_throwAnExceptionWhenIncorrectFieldSpecified() throws Exception {
-        objectMapper.readValue("{\"privateKeyFoo\": \"" + "foobar" + "\"}", EncodedPrivateKeyConfiguration.class);
+        objectMapper.readValue("{\"type\": \"base64\", \"privateKeyFoo\": \"" + "foobar" + "\"}", EncodedPrivateKeyConfiguration.class);
     }
 }
