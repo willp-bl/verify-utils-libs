@@ -1,5 +1,6 @@
 package uk.gov.ida.common.shared.configuration;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Resources;
 import org.junit.Rule;
@@ -25,7 +26,7 @@ public class EncodedPrivateKeyConfigurationTest {
         String path = Resources.getResource("private_key.pk8").getFile();
         byte[] key = Files.readAllBytes(new File(path).toPath());
         String encodedKey = Base64.getEncoder().encodeToString(key);
-        String jsonConfig = "{\"type\": \"base64\", \"key\": \"" + encodedKey + "\"}";
+        String jsonConfig = "{\"key\": \"" + encodedKey + "\"}";
         EncodedPrivateKeyConfiguration configuration = objectMapper.readValue(jsonConfig, EncodedPrivateKeyConfiguration.class);
         assertThat(configuration.getPrivateKey().getAlgorithm()).isEqualTo("RSA");
     }
@@ -36,11 +37,11 @@ public class EncodedPrivateKeyConfigurationTest {
         thrown.expectCause(any(InvalidKeySpecException.class));
 
         String key = "";
-        objectMapper.readValue("{\"type\": \"base64\", \"key\": \"" + key + "\"}", EncodedPrivateKeyConfiguration.class);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false).readValue("{\"key\": \"" + key + "\"}", EncodedPrivateKeyConfiguration.class);
     }
 
     @Test(expected = EncodedPrivateKeyDeserializer.PrivateKeyNotSpecifiedException.class)
     public void should_throwAnExceptionWhenIncorrectFieldSpecified() throws Exception {
-        objectMapper.readValue("{\"type\": \"base64\", \"privateKeyFoo\": \"" + "foobar" + "\"}", EncodedPrivateKeyConfiguration.class);
+        objectMapper.readValue("{\"privateKeyFoo\": \"" + "foobar" + "\"}", EncodedPrivateKeyConfiguration.class);
     }
 }

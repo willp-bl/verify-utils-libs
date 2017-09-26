@@ -11,7 +11,6 @@ import java.security.PrivateKey;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(using=PrivateKeyFileDeserializer.class)
-@JsonTypeName("file")
 public class PrivateKeyFileConfiguration implements PrivateKeyConfiguration {
 
     public PrivateKeyFileConfiguration(PrivateKey privateKey, String keyFile) {

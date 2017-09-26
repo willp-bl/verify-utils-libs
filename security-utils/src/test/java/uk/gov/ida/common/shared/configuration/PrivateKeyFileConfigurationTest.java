@@ -22,14 +22,14 @@ public class PrivateKeyFileConfigurationTest {
     @Test
     public void should_loadPrivateKeyFromJSON() throws Exception {
         String path = getClass().getClassLoader().getResource("private_key.pk8").getPath();
-        PrivateKeyFileConfiguration privateKeyFileConfiguration = objectMapper.readValue("{\"type\": \"file\", \"keyFile\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
+        PrivateKeyFileConfiguration privateKeyFileConfiguration = objectMapper.readValue("{\"keyFile\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
 
         assertThat(privateKeyFileConfiguration.getPrivateKey().getAlgorithm()).isEqualTo("RSA");
     }
 
     @Test(expected = FileNotFoundException.class)
     public void should_ThrowFooExceptionWhenFileDoesNotExist() throws Exception {
-        objectMapper.readValue("{\"type\": \"file\", \"keyFile\": \"/foo/bar\"}", PrivateKeyFileConfiguration.class);
+        objectMapper.readValue("{\"keyFile\": \"/foo/bar\"}", PrivateKeyFileConfiguration.class);
     }
 
     @Test
@@ -38,12 +38,12 @@ public class PrivateKeyFileConfigurationTest {
         thrown.expectCause(any(InvalidKeySpecException.class));
 
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        objectMapper.readValue("{\"type\": \"file\", \"keyFile\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
+        objectMapper.readValue("{\"keyFile\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
     }
 
     @Test(expected = PrivateKeyFileDeserializer.PrivateKeyPathNotSpecifiedException.class)
     public void should_throwAnExceptionWhenIncorrectKeySpecified() throws Exception {
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        objectMapper.readValue("{\"type\": \"file\", \"privateKeyFoo\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
+        objectMapper.readValue("{\"privateKeyFoo\": \"" + path + "\"}", PrivateKeyFileConfiguration.class);
     }
 }
