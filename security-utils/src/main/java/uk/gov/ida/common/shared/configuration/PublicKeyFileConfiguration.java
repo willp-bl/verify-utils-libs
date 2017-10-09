@@ -1,7 +1,6 @@
 package uk.gov.ida.common.shared.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.Valid;
@@ -9,8 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.security.PublicKey;
 
-@JsonDeserialize(using=PublicKeyDeserializer.class)
-@JsonTypeName("file")
+@JsonDeserialize(using=PublicKeyFileConfigurationDeserializer.class)
 public class PublicKeyFileConfiguration implements DeserializablePublicKeyConfiguration {
     private PublicKey publicKey;
     private String cert;

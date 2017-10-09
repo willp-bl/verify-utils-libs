@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 
-public class PublicKeyDeserializer extends JsonDeserializer<PublicKeyFileConfiguration> {
+public class PublicKeyFileConfigurationDeserializer extends JsonDeserializer<PublicKeyFileConfiguration> {
     @Override
     public PublicKeyFileConfiguration deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         // Setting the Codec explicitly is needed when this executes with the YAMLParser
