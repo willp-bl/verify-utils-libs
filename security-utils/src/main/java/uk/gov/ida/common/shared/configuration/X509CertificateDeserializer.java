@@ -30,10 +30,6 @@ public class X509CertificateDeserializer extends JsonDeserializer<X509Certificat
         Preconditions.checkState(certNode != null, "x509 not specified.");
         String x509 = certNode.asText();
 
-        JsonNode nameNode = node.get("name");
-        Preconditions.checkState(nameNode != null, "name not specified.");
-        String name = nameNode.asText();
-
         String fullCert = format("-----BEGIN CERTIFICATE-----\n{0}\n-----END CERTIFICATE-----", x509.trim());
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fullCert.getBytes(StandardCharsets.UTF_8));
 
