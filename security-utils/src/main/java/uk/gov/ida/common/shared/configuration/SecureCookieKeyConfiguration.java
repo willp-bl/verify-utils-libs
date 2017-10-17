@@ -1,7 +1,6 @@
 package uk.gov.ida.common.shared.configuration;
 
 import javax.inject.Qualifier;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 

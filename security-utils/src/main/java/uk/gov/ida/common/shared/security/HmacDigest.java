@@ -1,9 +1,9 @@
 package uk.gov.ida.common.shared.security;
 
-import javax.inject.Inject;
 import uk.gov.ida.common.shared.configuration.SecureCookieKeyStore;
 
 import javax.crypto.Mac;
+import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

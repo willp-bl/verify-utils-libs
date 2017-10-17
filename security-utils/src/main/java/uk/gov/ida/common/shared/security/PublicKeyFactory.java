@@ -1,7 +1,6 @@
 package uk.gov.ida.common.shared.security;
 
 import javax.inject.Inject;
-
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 

@@ -1,12 +1,12 @@
 package uk.gov.ida.common.shared.security;
 
 import com.google.common.base.Throwables;
-import javax.inject.Inject;
 import uk.gov.ida.common.shared.configuration.KeyConfiguration;
 import uk.gov.ida.common.shared.configuration.SecureCookieKeyConfiguration;
 import uk.gov.ida.common.shared.configuration.SecureCookieKeyStore;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

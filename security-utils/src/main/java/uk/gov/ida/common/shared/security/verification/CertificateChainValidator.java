@@ -1,9 +1,9 @@
 package uk.gov.ida.common.shared.security.verification;
 
-import javax.inject.Inject;
 import uk.gov.ida.common.shared.security.X509CertificateFactory;
 import uk.gov.ida.common.shared.security.verification.exceptions.CertificateChainValidationException;
 
+import javax.inject.Inject;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;

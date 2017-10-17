@@ -1,2 +1,3 @@
 uk.gov.ida.common.shared.configuration.EncodedCertificateConfiguration
 uk.gov.ida.common.shared.configuration.PublicKeyFileConfiguration
+uk.gov.ida.common.shared.configuration.X509CertificateConfiguration

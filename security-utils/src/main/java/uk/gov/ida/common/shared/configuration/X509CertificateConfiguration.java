@@ -1,6 +1,7 @@
 package uk.gov.ida.common.shared.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.Valid;
@@ -8,16 +9,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.security.PublicKey;
 
-@JsonDeserialize(using=EncodedCertificateDeserializer.class)
-public class EncodedCertificateConfiguration implements DeserializablePublicKeyConfiguration {
+@JsonDeserialize(using=X509CertificateDeserializer.class)
+@JsonTypeName("x509")
+public class X509CertificateConfiguration implements DeserializablePublicKeyConfiguration {
     private PublicKey publicKey;
     private String cert;
 
     @Valid
     @NotNull
     @Size(min = 1)
-    @JsonProperty("cert")
-    private String encodedCert;
+    @JsonProperty("x509")
+    private String x509;
 
     @Valid
     @NotNull
@@ -25,11 +27,11 @@ public class EncodedCertificateConfiguration implements DeserializablePublicKeyC
     @JsonProperty
     private String name;
 
-    public EncodedCertificateConfiguration(PublicKey publicKey, String encodedCert, String name, String cert) {
+    public X509CertificateConfiguration(PublicKey publicKey, String x509, String name, String cert) {
         this.publicKey = publicKey;
         this.name = name;
         this.cert = cert;
-        this.encodedCert = encodedCert;
+        this.x509 = x509;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class EncodedCertificateConfiguration implements DeserializablePublicKeyC
         return cert;
     }
 
-    public String getEncodedCert() {
-        return encodedCert;
+    public String getX509() {
+        return x509;
     }
 }
