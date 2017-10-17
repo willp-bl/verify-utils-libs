@@ -21,15 +21,8 @@ public class X509CertificateConfiguration implements DeserializablePublicKeyConf
     @JsonProperty("x509")
     private String x509;
 
-    @Valid
-    @NotNull
-    @Size(min = 1)
-    @JsonProperty
-    private String name;
-
-    public X509CertificateConfiguration(PublicKey publicKey, String x509, String name, String cert) {
+    public X509CertificateConfiguration(PublicKey publicKey, String x509, String cert) {
         this.publicKey = publicKey;
-        this.name = name;
         this.cert = cert;
         this.x509 = x509;
     }
@@ -41,7 +34,7 @@ public class X509CertificateConfiguration implements DeserializablePublicKeyConf
 
     @Override
     public String getName() {
-        return name;
+        return "X509 Cert";
     }
 
     @Override

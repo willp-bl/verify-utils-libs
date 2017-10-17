@@ -22,6 +22,10 @@ public class DeserializablePublicKeyConfigurationDeserializer extends JsonDeseri
         if(certFileNode != null) {
             return p.getCodec().treeToValue(node, PublicKeyFileConfiguration.class);
         }
+        JsonNode x509Node = node.get("x509");
+        if(x509Node != null) {
+            return p.getCodec().treeToValue(node, X509CertificateConfiguration.class);
+        }
         return p.getCodec().treeToValue(node, EncodedCertificateConfiguration.class);
     }
 }

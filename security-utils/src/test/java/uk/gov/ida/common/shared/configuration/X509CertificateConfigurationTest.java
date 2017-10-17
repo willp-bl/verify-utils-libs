@@ -46,17 +46,10 @@ public class X509CertificateConfigurationTest {
         objectMapper.readValue("{\"type\": \"x509\", \"x509\": \"" + encodedKey + "\", \"name\": \"someId\"}", X509CertificateConfiguration.class);
     }
 
-    @Test
-    public void should_ThrowExceptionWhenStringIsNotBase64Encoded() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-
-        objectMapper.readValue("{\"type\": \"base64\", \"cert\": \"" + "FOOBARBAZ" + "\", \"name\": \"someId\"}", EncodedCertificateConfiguration.class);
-    }
-
     @Test(expected = IllegalStateException.class)
     public void should_ThrowExceptionWhenIncorrectKeySpecified() throws Exception {
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        String jsonConfig = "{\"type\": \"base64\", \"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}";
+        String jsonConfig = "{\"type\": \"x509\", \"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}";
         objectMapper.readValue(jsonConfig, EncodedCertificateConfiguration.class);
     }
 }

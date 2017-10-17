@@ -27,7 +27,7 @@ public class X509CertificateDeserializer extends JsonDeserializer<X509Certificat
         JsonNode node = p.getCodec().readTree(p);
 
         JsonNode certNode = node.get("x509");
-        Preconditions.checkState(certNode != null, "cert not specified.");
+        Preconditions.checkState(certNode != null, "x509 not specified.");
         String x509 = certNode.asText();
 
         JsonNode nameNode = node.get("name");
@@ -47,7 +47,7 @@ public class X509CertificateDeserializer extends JsonDeserializer<X509Certificat
 
         PublicKey publicKey = certificate.getPublicKey();
 
-        return new X509CertificateConfiguration(publicKey, x509, name, fullCert);
+        return new X509CertificateConfiguration(publicKey, x509, fullCert);
     }
 
     private CertificateFactory getCertificateFactory() {
