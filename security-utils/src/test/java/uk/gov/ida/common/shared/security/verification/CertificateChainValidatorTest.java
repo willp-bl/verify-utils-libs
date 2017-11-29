@@ -78,7 +78,7 @@ public class CertificateChainValidatorTest {
         assertThat(certificateValidity.isValid()).isEqualTo(false);
         CertPathValidatorException exception = certificateValidity.getException().get();
         assertThat(exception.getReason()).isEqualTo(BasicReason.EXPIRED);
-        assertThat(exception.getMessage()).isEqualTo("timestamp check failed");
+        assertThat(exception.getMessage()).isEqualTo("validity check failed");
     }
 
     @Test
