@@ -5,9 +5,10 @@ import uk.gov.ida.common.shared.configuration.DeserializablePublicKeyConfigurati
 import java.util.ArrayList;
 import java.util.List;
 
+import static uk.gov.ida.common.shared.security.Certificate.BEGIN_CERT;
+import static uk.gov.ida.common.shared.security.Certificate.END_CERT;
+
 public class CertificateStore {
-    private static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
-    private static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
 
     private final List<DeserializablePublicKeyConfiguration> publicEncryptionKeyConfigurations;
     private final List<DeserializablePublicKeyConfiguration> publicSigningKeyConfigurations;
@@ -38,11 +39,11 @@ public class CertificateStore {
 
     private String stripHeaders(final String originalCertificate) {
         String strippedCertificate = originalCertificate;
-        if (originalCertificate.contains(BEGIN_CERTIFICATE)){
-            strippedCertificate = originalCertificate.replace(BEGIN_CERTIFICATE, "");
+        if (originalCertificate.contains(BEGIN_CERT)){
+            strippedCertificate = originalCertificate.replace(BEGIN_CERT, "");
         }
-        if (originalCertificate.contains(END_CERTIFICATE)){
-            strippedCertificate = strippedCertificate.replace(END_CERTIFICATE, "");
+        if (originalCertificate.contains(END_CERT)){
+            strippedCertificate = strippedCertificate.replace(END_CERT, "");
         }
         return strippedCertificate.replace(" ","");
     }

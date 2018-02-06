@@ -10,13 +10,12 @@ import uk.gov.ida.common.shared.configuration.PublicKeyFileConfiguration;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.PublicKey;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static uk.gov.ida.common.shared.security.Certificate.BEGIN_CERT;
+import static uk.gov.ida.common.shared.security.Certificate.END_CERT;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CertificateStoreTest {
@@ -31,11 +30,7 @@ public class CertificateStoreTest {
     }
 
     private PublicKeyFileConfiguration getPublicKey(String publicKey) throws IOException, URISyntaxException {
-        X509CertificateFactory certificateFactory = new X509CertificateFactory();
-        String cert = new String(Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource(publicKey).toURI())));
-        java.security.cert.Certificate certificate = certificateFactory.createCertificate(cert);
-        PublicKey key = certificate.getPublicKey();
-        return new PublicKeyFileConfiguration(key, publicKey, "name", cert);
+        return new PublicKeyFileConfiguration(getClass().getClassLoader().getResource(publicKey).getFile(), "TestCertificateName");
     }
 
     @Test
@@ -61,7 +56,7 @@ public class CertificateStoreTest {
     }
 
     private String stripHeaders(final String originalCertificate) {
-        return originalCertificate.replace("-----BEGIN CERTIFICATE-----", "").replace("-----END CERTIFICATE-----", "").replace(" ","");
+        return originalCertificate.replace(BEGIN_CERT, "").replace(END_CERT, "").replace(" ","");
     }
 
     @Test
@@ -72,7 +67,7 @@ public class CertificateStoreTest {
         assertThat(signingCertificateValues).hasSize(1);
 
         Certificate primaryCertificate = signingCertificateValues.get(0);
-        assertThat(primaryCertificate.getIssuerId()).isEqualTo("name");
+        assertThat(primaryCertificate.getIssuerId()).isEqualTo("TestCertificateName");
         assertThat(publicKeyConfiguration2.getCert()).contains(primaryCertificate.getCertificate());
     }
 }
