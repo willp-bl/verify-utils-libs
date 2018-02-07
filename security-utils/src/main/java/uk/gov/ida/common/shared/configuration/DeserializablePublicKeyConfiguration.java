@@ -2,6 +2,7 @@ package uk.gov.ida.common.shared.configuration;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import uk.gov.ida.common.shared.security.exceptions.CertificateLoadingException;
 
 import java.io.ByteArrayInputStream;
 import java.security.PublicKey;
@@ -45,7 +46,7 @@ public abstract class DeserializablePublicKeyConfiguration {
                     new ByteArrayInputStream(cert.getBytes())
             );
         } catch (CertificateException e) {
-            throw new RuntimeException(e);
+            throw new CertificateLoadingException(cert);
         }
     }
 }

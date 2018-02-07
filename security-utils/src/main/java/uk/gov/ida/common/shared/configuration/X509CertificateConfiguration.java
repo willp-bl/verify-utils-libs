@@ -10,7 +10,7 @@ import static uk.gov.ida.common.shared.security.Certificate.END_CERT;
 
 public class X509CertificateConfiguration extends DeserializablePublicKeyConfiguration {
     @JsonCreator
-    public X509CertificateConfiguration(@JsonProperty("cert") @JsonAlias({ "x509", "fullCertificate" }) String cert) {
+    public X509CertificateConfiguration(@JsonProperty("cert") @JsonAlias({ "x509" }) String cert) {
         this.fullCertificate = format("{0}\n{1}\n{2}", BEGIN_CERT, cert.trim(), END_CERT);
         this.certificate = getCertificateFromString(fullCertificate);
     }

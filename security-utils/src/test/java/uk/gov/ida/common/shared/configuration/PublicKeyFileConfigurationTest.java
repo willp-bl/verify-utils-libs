@@ -21,7 +21,7 @@ public class PublicKeyFileConfigurationTest {
     @Test
     public void should_loadPublicKeyFromJSON() throws Exception {
         String path = getClass().getClassLoader().getResource("public_key.crt").getPath();
-        DeserializablePublicKeyConfiguration publicKeyConfiguration = objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
+        DeserializablePublicKeyConfiguration publicKeyConfiguration = objectMapper.readValue("{\"type\": \"file\", \"cert\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
 
         assertThat(publicKeyConfiguration.getPublicKey().getAlgorithm()).isEqualTo("RSA");
     }
@@ -29,7 +29,7 @@ public class PublicKeyFileConfigurationTest {
     @Test
     public void should_loadPublicKeyWhenUsingAliases() throws Exception {
         String path = getClass().getClassLoader().getResource("public_key.crt").getPath();
-        List<String> aliases = Arrays.asList("cert", "certFile", "file");
+        List<String> aliases = Arrays.asList("cert", "certFile");
 
         for (String alias : aliases) {
             DeserializablePublicKeyConfiguration publicKeyConfiguration = objectMapper.readValue(
@@ -44,21 +44,21 @@ public class PublicKeyFileConfigurationTest {
     public void should_ThrowExceptionWhenFileDoesNotExist() throws Exception {
         thrown.expect(InvalidDefinitionException.class);
         thrown.expectMessage("NoSuchFileException");
-        objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"/foo/bar\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"cert\": \"/foo/bar\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
     }
 
     @Test
     public void should_ThrowExceptionWhenFileDoesNotContainAPublicKey() throws Exception {
         thrown.expect(InvalidDefinitionException.class);
-        thrown.expectMessage("CertificateException");
+        thrown.expectMessage("Unable to load certificate");
 
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        DeserializablePublicKeyConfiguration publicKeyConfiguration = objectMapper.readValue("{\"type\": \"file\", \"certFile\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"cert\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
     }
 
     @Test(expected = InvalidDefinitionException.class)
     public void should_ThrowExceptionWhenIncorrectKeySpecified() throws Exception {
         String path = getClass().getClassLoader().getResource("empty_file").getPath();
-        objectMapper.readValue("{\"type\": \"file\", \"certFileFoo\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
+        objectMapper.readValue("{\"type\": \"file\", \"certFoo\": \"" + path + "\", \"name\": \"someId\"}", DeserializablePublicKeyConfiguration.class);
     }
 }

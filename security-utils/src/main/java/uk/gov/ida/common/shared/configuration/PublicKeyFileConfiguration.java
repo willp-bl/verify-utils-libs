@@ -12,7 +12,7 @@ public class PublicKeyFileConfiguration extends DeserializablePublicKeyConfigura
 
     @JsonCreator
     public PublicKeyFileConfiguration(
-        @JsonProperty("cert") @JsonAlias({ "file", "certFile", "fullCertificate" }) String certFile,
+        @JsonProperty("cert") @JsonAlias({ "certFile" }) String certFile,
         @JsonProperty("name") String name
     ) {
         try {
