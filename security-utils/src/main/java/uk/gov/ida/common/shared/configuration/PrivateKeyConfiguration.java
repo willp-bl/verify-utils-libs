@@ -18,7 +18,7 @@ defined. This can be avoided by only ever to deserialize to the super type (Priv
         @JsonSubTypes.Type(value = EncodedPrivateKeyConfiguration.class, name = "encoded")
 })
 public abstract class PrivateKeyConfiguration {
-    abstract PrivateKey getPrivateKey();
+    public abstract PrivateKey getPrivateKey();
 
     protected PrivateKey getPrivateKeyFromBytes(byte[] privateKey) {
         PrivateKeyFactory privateKeyFactory = new PrivateKeyFactory();
