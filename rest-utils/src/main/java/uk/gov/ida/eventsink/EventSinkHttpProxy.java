@@ -2,14 +2,15 @@ package uk.gov.ida.eventsink;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javax.inject.Inject;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.ida.common.CommonUrls;
+import uk.gov.ida.eventemitter.Event;
 import uk.gov.ida.exceptions.ApplicationException;
 import uk.gov.ida.jerseyclient.JsonClient;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
@@ -31,7 +32,7 @@ public class EventSinkHttpProxy implements EventSinkProxy {
 
     @Override
     @Timed
-    public void logHubEvent(EventSinkHubEvent eventSinkHubEvent) {
+    public void logHubEvent(Event eventSinkHubEvent) {
         String path = CommonUrls.HUB_SUPPORT_EVENT_SINK_RESOURCE;
         URI uri = UriBuilder
                 .fromUri(eventSinkUri)
@@ -48,7 +49,7 @@ public class EventSinkHttpProxy implements EventSinkProxy {
         }
     }
 
-    private String getEventAsString(EventSinkHubEvent eventSinkHubEvent) {
+    private String getEventAsString(Event eventSinkHubEvent) {
         try {
             return environment.getObjectMapper().writeValueAsString(eventSinkHubEvent);
         } catch (JsonProcessingException e) {
