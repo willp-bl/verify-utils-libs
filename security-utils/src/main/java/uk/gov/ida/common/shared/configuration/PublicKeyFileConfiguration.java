@@ -23,4 +23,8 @@ public class PublicKeyFileConfiguration extends DeserializablePublicKeyConfigura
         this.certificate = getCertificateFromString(fullCertificate);
         this.name = name;
     }
+
+    public String getType() {
+        return "file";
+    }
 }

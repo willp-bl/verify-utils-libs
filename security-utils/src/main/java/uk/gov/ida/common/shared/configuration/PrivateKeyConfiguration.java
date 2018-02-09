@@ -15,7 +15,8 @@ defined. This can be avoided by only ever to deserialize to the super type (Priv
         defaultImpl = PrivateKeyFileConfiguration.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PrivateKeyFileConfiguration.class, name = "file"),
-        @JsonSubTypes.Type(value = EncodedPrivateKeyConfiguration.class, name = "encoded")
+        @JsonSubTypes.Type(value = EncodedPrivateKeyConfiguration.class, name = "encoded"),
+        @JsonSubTypes.Type(value = EncodedPrivateKeyConfiguration.class, name = "base64")
 })
 public abstract class PrivateKeyConfiguration {
     public abstract PrivateKey getPrivateKey();

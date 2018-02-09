@@ -16,4 +16,8 @@ public class EncodedCertificateConfiguration extends DeserializablePublicKeyConf
         this.certificate = getCertificateFromString(fullCertificate);
         this.name = name;
     }
+
+    public String getType() {
+        return "encoded";
+    }
 }

@@ -1,5 +1,6 @@
 package uk.gov.ida.common.shared.configuration;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -21,6 +22,7 @@ defined. This can be avoided by only ever to deserialize to the super type (Dese
     @JsonSubTypes.Type(value=EncodedCertificateConfiguration.class, name="encoded"),
     @JsonSubTypes.Type(value=X509CertificateConfiguration.class, name="x509")
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class DeserializablePublicKeyConfiguration {
 
     protected String fullCertificate;
@@ -48,4 +50,6 @@ public abstract class DeserializablePublicKeyConfiguration {
             throw new RuntimeException(e);
         }
     }
+
+    public abstract String getType();
 }

@@ -40,6 +40,12 @@ public class PrivateKeyConfigurationTest {
         assertThat(config.getClass()).isEqualTo(EncodedPrivateKeyConfiguration.class);
     }
 
+    @Test
+    public void shouldUseBase64TypeWhenSpecified() throws Exception {
+        PrivateKeyConfiguration config = objectMapper.readValue("{\"type\": \"base64\", \"key\": \"" + getKeyAsBase64() + "\"}", PrivateKeyConfiguration.class);
+        assertThat(config.getClass()).isEqualTo(EncodedPrivateKeyConfiguration.class);
+    }
+
     private String getKeyAsBase64() throws IOException {
         String path = Resources.getResource("private_key.pk8").getFile();
         byte[] key = Files.readAllBytes(new File(path).toPath());

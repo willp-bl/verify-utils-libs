@@ -14,4 +14,8 @@ public class X509CertificateConfiguration extends DeserializablePublicKeyConfigu
         this.fullCertificate = format("{0}\n{1}\n{2}", BEGIN_CERT, cert.trim(), END_CERT);
         this.certificate = getCertificateFromString(fullCertificate);
     }
+
+    public String getType() {
+        return "x509";
+    }
 }
