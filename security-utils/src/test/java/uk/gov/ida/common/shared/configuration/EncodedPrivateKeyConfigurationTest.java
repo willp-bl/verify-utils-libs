@@ -31,17 +31,6 @@ public class EncodedPrivateKeyConfigurationTest {
     }
 
     @Test
-    public void should_loadPrivateKeyWhenUsingAliases() throws Exception {
-        String key = getKeyAsBase64();
-        List<String> aliases = Arrays.asList("key", "encodedKey");
-
-        for (String alias : aliases) {
-            PrivateKeyConfiguration privateKeyFileConfiguration = objectMapper.readValue("{\"type\": \"encoded\", \"" + alias + "\": \"" + key + "\"}", PrivateKeyConfiguration.class);
-            assertThat(privateKeyFileConfiguration.getPrivateKey().getAlgorithm()).isEqualTo("RSA");
-        }
-    }
-
-    @Test
     public void should_ThrowExceptionWhenKeyIsNotBase64() throws Exception {
         thrown.expect(InvalidDefinitionException.class);
 

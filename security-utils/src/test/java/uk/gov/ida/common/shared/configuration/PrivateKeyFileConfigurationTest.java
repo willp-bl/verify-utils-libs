@@ -29,7 +29,7 @@ public class PrivateKeyFileConfigurationTest {
     @Test
     public void should_loadPrivateKeyWhenUsingAliases() throws Exception {
         String path = getClass().getClassLoader().getResource("private_key.pk8").getPath();
-        List<String> aliases = Arrays.asList("key", "keyFile", "file");
+        List<String> aliases = Arrays.asList("key", "keyFile");
 
         for (String alias : aliases) {
             PrivateKeyConfiguration privateKeyFileConfiguration = objectMapper.readValue("{\"type\": \"file\", \"" + alias + "\": \"" + path + "\"}", PrivateKeyConfiguration.class);

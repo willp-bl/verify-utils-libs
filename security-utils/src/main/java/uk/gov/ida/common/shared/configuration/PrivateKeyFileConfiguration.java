@@ -13,7 +13,7 @@ public class PrivateKeyFileConfiguration extends PrivateKeyConfiguration {
 
     @JsonCreator
     public PrivateKeyFileConfiguration(
-            @JsonProperty("key") @JsonAlias({ "keyFile", "file"}) String keyFile) {
+            @JsonProperty("key") @JsonAlias({ "keyFile" }) String keyFile) {
         try {
             this.privateKey = getPrivateKeyFromBytes(Files.readAllBytes(Paths.get(keyFile)));
         } catch (IOException e) {

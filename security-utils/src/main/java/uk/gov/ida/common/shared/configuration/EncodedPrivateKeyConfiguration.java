@@ -11,7 +11,7 @@ import java.util.Base64;
 public class EncodedPrivateKeyConfiguration extends PrivateKeyConfiguration {
 
     @JsonCreator
-    public EncodedPrivateKeyConfiguration(@JsonProperty("key") @JsonAlias("encodedKey") String key) {
+    public EncodedPrivateKeyConfiguration(@JsonProperty("key") String key) {
         this.privateKey = getPrivateKeyFromBytes(Base64.getDecoder().decode(key));
     }
 

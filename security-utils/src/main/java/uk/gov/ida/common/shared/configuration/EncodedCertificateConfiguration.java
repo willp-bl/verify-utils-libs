@@ -8,10 +8,7 @@ import java.util.Base64;
 
 public class EncodedCertificateConfiguration extends DeserializablePublicKeyConfiguration {
     @JsonCreator
-    public EncodedCertificateConfiguration(
-        @JsonProperty("cert") @JsonAlias({ "encodedCert", "fullCertificate" }) String encodedCert,
-        @JsonProperty("name") String name
-    ) {
+    public EncodedCertificateConfiguration(@JsonProperty("cert") String encodedCert, @JsonProperty("name") String name) {
         this.fullCertificate = new String(Base64.getDecoder().decode(encodedCert));
         this.certificate = getCertificateFromString(fullCertificate);
         this.name = name;
