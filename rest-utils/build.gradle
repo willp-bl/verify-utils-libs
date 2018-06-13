@@ -14,9 +14,9 @@ dependencies {
             "io.dropwizard:dropwizard-core:$dependencyVersions.dropwizardVersion",
             "io.dropwizard:dropwizard-client:$dependencyVersions.dropwizardVersion",
             "javax.ws.rs:javax.ws.rs-api:2.0.1",
-            "uk.gov.ida:dropwizard-logstash:1.1.4-49",
+            "uk.gov.ida:dropwizard-logstash:1.2.2-67",
             "org.apache.commons:commons-lang3:3.3.2",
-            "uk.gov.ida:verify-event-emitter:0.0.1-30"
+            "uk.gov.ida:verify-event-emitter:0.0.1-38"
 }
 
 bintray {
